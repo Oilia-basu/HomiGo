@@ -1,7 +1,7 @@
 import './SpecialOffer.css'
 function SpecialOffer() {
     return (
-        <div className="banner mt-5Name">
+        <div className="banner mt-5">
             <div className="drift d1"></div>
             <div className="drift d2"></div>
             <div className="drift d3"></div>
