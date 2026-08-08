@@ -13,6 +13,7 @@ import BecomeApartner from './landing_Page/becomeapartner/BecomeApartner.jsx'
 import MyBookingPage from './landing_Page/mybookings/MyBookingPage.jsx'
 import Login from './landing_Page/Login.jsx'
 import Signup from './landing_Page/Signup.jsx'
+import NotFound from './landing_Page/NotFound.jsx'
 createRoot(document.getElementById('root')).render(
   <BrowserRouter>
   <Navbar/>
@@ -23,6 +24,7 @@ createRoot(document.getElementById('root')).render(
     <Route path="/mybookings" element={<MyBookingPage/>}/>
     <Route path="/login" element={<Login/>}/>
     <Route path="/signup" element={<Signup/>}/>
+    <Route path="*" element={<NotFound/>}/>
    
   </Routes>
   <Footer/>
