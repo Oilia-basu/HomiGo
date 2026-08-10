@@ -18,16 +18,16 @@ function Navbar() {
 
                 <div className="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
                     <ul className="navbar-nav gap-3">
-
                         <li className="nav-item">
-                            <Link className="nav-link active" to="/support">
-                                Support
+                            <Link className="nav-link active" to="/services">
+                                Services
                             </Link>
                         </li>
+                        
 
                         <li className="nav-item">
-                            <Link className="nav-link active" to="/becomeapartner">
-                                Become a Partner
+                            <Link className="nav-link active" to="/careers">
+                                Careers
                             </Link>
                         </li>
 
@@ -37,8 +37,8 @@ function Navbar() {
                             </Link>
                         </li>
                         <li className="nav-item">
-                            <Link className="nav-link active" to="/services">
-                                Services
+                            <Link className="nav-link active" to="/support">
+                                Support
                             </Link>
                         </li>
                         <li className="nav-item"
