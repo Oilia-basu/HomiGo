@@ -36,7 +36,11 @@ function Navbar() {
                                 My Bookings
                             </Link>
                         </li>
-
+                        <li className="nav-item">
+                            <Link className="nav-link active" to="/services">
+                                Services
+                            </Link>
+                        </li>
                         <li className="nav-item"
                             style={{ border: "1px solid grey", borderRadius: "8px" }}>
                             <Link className="nav-link active" to="/login">

@@ -14,6 +14,7 @@ import Login from './landing_Page/Login.jsx'
 import Signup from './landing_Page/Signup.jsx'
 import NotFound from './landing_Page/NotFound.jsx'
 import SupportPage from './landing_Page/support/Support.jsx'
+import ServicePage from './landing_Page/services/ServicePage.jsx'
 createRoot(document.getElementById('root')).render(
   <BrowserRouter>
   <Navbar/>
@@ -22,6 +23,7 @@ createRoot(document.getElementById('root')).render(
     <Route path="/support" element={<SupportPage/>}/>
     <Route path="/becomeapartner" element={<BecomeApartner/>}/>
     <Route path="/mybookings" element={<MyBookingPage/>}/>
+    <Route path="/services" element={<ServicePage/>}/>
     <Route path="/login" element={<Login/>}/>
     <Route path="/signup" element={<Signup/>}/>
     <Route path="*" element={<NotFound/>}/>
