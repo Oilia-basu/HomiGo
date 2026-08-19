@@ -1,37 +1,47 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
+import { createRoot } from "react-dom/client";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import {BrowserRouter, Routes, Route} from "react-router-dom"
+import "./index.css";
 
-import './index.css'
+import Navbar from "./landing_Page/Navbar.jsx";
+import Footer from "./landing_Page/Footer.jsx";
 
-import Navbar from './landing_Page/Navbar.jsx'
-import Footer from './landing_Page/Footer.jsx'
-import Home from './landing_Page/home/Home.jsx'
-import MyBookingPage from './landing_Page/mybookings/MyBookingPage.jsx'
-import Login from './landing_Page/Login.jsx'
-import Signup from './landing_Page/Signup.jsx'
-import NotFound from './landing_Page/NotFound.jsx'
-import Support from './landing_Page/support/Support.jsx'
-import CareersPage from './landing_Page/careers/CareersPage.jsx'
-import Admin from './landing_Page/admin/Admin.jsx'
-import ServicePage from './landing_Page/services/ServicePage.jsx'
-createRoot(document.getElementById('root')).render(
+import AppRoutes from "../routes/AppRoutes.jsx";
+
+import ServiceProviderPage from "../serviceprovider/ServiceProviderPage.jsx";
+import Admin from "./landing_Page/admin/Admin.jsx";
+import ProviderRoutes from "../routes/ProviderRoutes.jsx";
+
+createRoot(document.getElementById("root")).render(
   <BrowserRouter>
-  <Navbar/>
-  <Routes>
-    <Route path="/" element={<Home/>}/>
-    <Route path="/services" element={<ServicePage/>}/>
 
-    <Route path="/support" element={<Support/>}/>
-    <Route path="/careers" element={<CareersPage/>}/>
-    <Route path="/mybookings" element={<MyBookingPage/>}/>
-    <Route path="/admin" element={<Admin/>}/>
-    <Route path="/login" element={<Login/>}/>
-    <Route path="/signup" element={<Signup/>}/>
-    <Route path="*" element={<NotFound/>}/>
-   
-  </Routes>
-  <Footer/>
+    <Routes>
+
+      {/* Normal HomiGo website */}
+      <Route
+        path="/*"
+        element={
+          <>
+            <Navbar />
+
+            <AppRoutes />
+
+            <Footer />
+          </>
+        }
+      />
+
+      {/* Service Provider Dashboard */}
+      <Route
+        path="/provider/*"
+        element={<ProviderRoutes />}
+      />
+      <Route
+        path="/admin"
+        element={<Admin />}
+      />
+
+    </Routes>
+
   </BrowserRouter>
-)
+);

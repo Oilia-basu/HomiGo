@@ -112,7 +112,7 @@ function Navbar() {
 
                             {/* Login */}
                             <li
-                                className="nav-item"
+                                className="nav-item login"
                                 style={{
                                     border: "1px solid grey",
                                     borderRadius: "8px",
@@ -131,7 +131,7 @@ function Navbar() {
 
                             {/* Sign Up */}
                             <li
-                                className="nav-item"
+                                className="nav-item signup"
                                 style={{
                                     border: "1px solid #00BFA6",
                                     borderRadius: "8px",

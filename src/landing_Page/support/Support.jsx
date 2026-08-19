@@ -21,7 +21,7 @@ const Support = () => {
               <div className="support-icon">📞</div>
               <div>
                 <h4>Call Us</h4>
-                <p>+91 98765 43210</p>
+                <p>+91 0000000000</p>
               </div>
             </div>
 
@@ -29,7 +29,7 @@ const Support = () => {
               <div className="support-icon">✉️</div>
               <div>
                 <h4>Email Us</h4>
-                <p>support@example.com</p>
+                <p>support@homigo.ac.in</p>
               </div>
             </div>
 

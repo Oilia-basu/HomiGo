@@ -1,4 +1,7 @@
+import ServiceProviderPage from "../../../serviceprovider/ServiceProviderPage";
 import HiringCard from "./HiringCard";
+import { Link} from "react-router-dom";
+
 function CareersPage() {
 
     return (
@@ -39,6 +42,13 @@ function CareersPage() {
                 position={"Interior Designer"}
                 salary={"Earn upto ₹10 LPA"}
             />
+            <div class="d-flex justify-content-center mt-5">
+                <Link to="/provider">
+                    <button className="btn  btn-lg ">
+                        Join Us!
+                    </button>
+                </Link>
+            </div>
         </>
     );
 }
