@@ -1,71 +1,163 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+import AdminButton from "./admin/AdminButton";
+import './Navbar.css'
 function Navbar() {
+    const location = useLocation();
+
     return (
-
-        <nav className="navbar navbar-expand-lg navbar-light bg-light border-bottom sticky-top ">
-            <div className="container px-2 py-0">
-
-                <Link className="navbar-brand" to="/" >
-                    <img
-                        src="media/images/HomiGoLogo.png"
-                        alt="logo"
-                        style={{ width: "60%" }}
-                    />
-                </Link>
-                <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <div className="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
-                    <ul className="navbar-nav gap-3">
-                        <li className="nav-item">
-                            <Link className="nav-link active" to="/services">
-                                Services
-                            </Link>
-                        </li>
-                        
-
-                        <li className="nav-item">
-                            <Link className="nav-link active" to="/careers">
-                                Careers
-                            </Link>
-                        </li>
-
-                        <li className="nav-item">
-                            <Link className="nav-link active" to="/mybookings">
-                                My Bookings
-                            </Link>
-                        </li>
-                        <li className="nav-item">
-                            <Link className="nav-link active" to="/support">
-                                Support
-                            </Link>
-                        </li>
-                        <li className="nav-item"
-                            style={{ border: "1px solid grey", borderRadius: "8px" }}>
-                            <Link className="nav-link active" to="/login">
-                                Login
-                            </Link>
-                        </li>
-
-                        <li
-                            className="nav-item"
+        <>
+            <nav
+                className="navbar navbar-expand-lg navbar-light bg-light border-bottom fixed-top"
+                style={{
+                    height: "90px",
+                    padding: "0",
+                    zIndex: 1030,
+                }}
+            >
+                <div
+                    className="container px-2"
+                    style={{
+                        height: "100%",
+                        display: "flex",
+                        alignItems: "center",
+                    }}
+                >
+                    {/* Logo */}
+                    <Link
+                        className="navbar-brand"
+                        to="/"
+                        style={{
+                            display: "flex",
+                            alignItems: "center",
+                            margin: "0",
+                        }}
+                    >
+                        <img
+                            src="/media/images/HomiGoLogo.png"
+                            alt="logo"
                             style={{
-                                border: "1px solid #00BFA6",
-                                borderRadius: "8px",
-                                backgroundColor: "#00BFA6",
+                                width: "140px",
+                                height: "auto",
+                                display: "block",
+                            }}
+                        />
+                    </Link>
+
+                    <div
+                        className="collapse navbar-collapse justify-content-end"
+                        id="navbarSupportedContent"
+                    >
+                        <ul
+                            className="navbar-nav gap-3"
+                            style={{
+                                alignItems: "center",
                             }}
                         >
-                            <Link className="nav-link text-white" to="/signup">
-                                Sign Up
-                            </Link>
-                        </li>
 
-                    </ul>
+                            {/* Services */}
+                            <li className="nav-item">
+                                <Link
+                                    className={`nav-link ${
+                                        location.pathname === "/services"
+                                            ? "active-nav"
+                                            : ""
+                                    }`}
+                                    to="/services"
+                                >
+                                    Services
+                                </Link>
+                            </li>
+
+                            {/* Careers */}
+                            <li className="nav-item">
+                                <Link
+                                    className={`nav-link ${
+                                        location.pathname === "/careers"
+                                            ? "active-nav"
+                                            : ""
+                                    }`}
+                                    to="/careers"
+                                >
+                                    Careers
+                                </Link>
+                            </li>
+
+                            {/* My Bookings */}
+                            <li className="nav-item">
+                                <Link
+                                    className={`nav-link ${
+                                        location.pathname === "/mybookings"
+                                            ? "active-nav"
+                                            : ""
+                                    }`}
+                                    to="/mybookings"
+                                >
+                                    My Bookings
+                                </Link>
+                            </li>
+
+                            {/* Support */}
+                            <li className="nav-item">
+                                <Link
+                                    className={`nav-link ${
+                                        location.pathname === "/support"
+                                            ? "active-nav"
+                                            : ""
+                                    }`}
+                                    to="/support"
+                                >
+                                    Support
+                                </Link>
+                            </li>
+
+                            {/* Login */}
+                            <li
+                                className="nav-item"
+                                style={{
+                                    border: "1px solid grey",
+                                    borderRadius: "8px",
+                                }}
+                            >
+                                <Link
+                                    className="nav-link"
+                                    to="/login"
+                                    style={{
+                                        padding: "8px 16px",
+                                    }}
+                                >
+                                    Login
+                                </Link>
+                            </li>
+
+                            {/* Sign Up */}
+                            <li
+                                className="nav-item"
+                                style={{
+                                    border: "1px solid #00BFA6",
+                                    borderRadius: "8px",
+                                    backgroundColor: "#00BFA6",
+                                }}
+                            >
+                                <Link
+                                    className="nav-link text-white"
+                                    to="/signup"
+                                    style={{
+                                        padding: "8px 16px",
+                                    }}
+                                >
+                                    Sign Up
+                                </Link>
+                            </li>
+
+                            <AdminButton />
+                        </ul>
+                    </div>
                 </div>
-            </div>
-        </nav>
+            </nav>
 
+            {/* Space for fixed navbar */}
+            <div style={{ height: "30px" }}></div>
+        </>
     );
 }
 

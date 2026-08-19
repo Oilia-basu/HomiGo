@@ -12,18 +12,21 @@ import MyBookingPage from './landing_Page/mybookings/MyBookingPage.jsx'
 import Login from './landing_Page/Login.jsx'
 import Signup from './landing_Page/Signup.jsx'
 import NotFound from './landing_Page/NotFound.jsx'
-import SupportPage from './landing_Page/support/Support.jsx'
-import ServicePage from './landing_Page/services/ServicePage.jsx'
+import Support from './landing_Page/support/Support.jsx'
 import CareersPage from './landing_Page/careers/CareersPage.jsx'
+import Admin from './landing_Page/admin/Admin.jsx'
+import ServicePage from './landing_Page/services/ServicePage.jsx'
 createRoot(document.getElementById('root')).render(
   <BrowserRouter>
   <Navbar/>
   <Routes>
     <Route path="/" element={<Home/>}/>
-    <Route path="/support" element={<SupportPage/>}/>
+    <Route path="/services" element={<ServicePage/>}/>
+
+    <Route path="/support" element={<Support/>}/>
     <Route path="/careers" element={<CareersPage/>}/>
     <Route path="/mybookings" element={<MyBookingPage/>}/>
-    <Route path="/services" element={<ServicePage/>}/>
+    <Route path="/admin" element={<Admin/>}/>
     <Route path="/login" element={<Login/>}/>
     <Route path="/signup" element={<Signup/>}/>
     <Route path="*" element={<NotFound/>}/>

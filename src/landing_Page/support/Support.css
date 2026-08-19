@@ -1,0 +1,161 @@
+/* Support.css */
+
+.support-section {
+  padding: 70px 20px;
+  background: #f8fafc;
+}
+
+.support-container {
+  max-width: 1100px;
+  margin: auto;
+  padding: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 50px;
+  background: white;
+  border-radius: 24px;
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.08);
+}
+
+.support-content {
+  flex: 1;
+}
+
+.support-badge {
+  display: inline-block;
+  padding: 7px 14px;
+  border-radius: 20px;
+  background: #e8f5e9;
+  color: #00BFA6;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+.support-content h2 {
+  margin: 0 0 15px;
+  font-size: 36px;
+  color: #1f2937;
+}
+
+.support-content > p {
+  max-width: 600px;
+  color: #6b7280;
+  line-height: 1.7;
+  margin-bottom: 25px;
+}
+
+.support-options {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.support-card {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 13px 16px;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  transition: 0.3s ease;
+}
+
+.support-card:hover {
+  transform: translateX(5px);
+  border-color: #00BFA6;
+}
+
+.support-icon {
+  width: 42px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  background: #f0fdf4;
+  font-size: 20px;
+}
+
+.support-card h4 {
+  margin: 0 0 3px;
+  color: #374151;
+}
+
+.support-card p {
+  margin: 0;
+  color: #6b7280;
+  font-size: 14px;
+}
+
+.support-btn {
+  margin-top: 25px;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 10px;
+  background: #00BFA6;
+  color: white;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.support-btn:hover {
+  background: #00BFA6;
+  transform: translateY(-2px);
+}
+
+.support-image {
+  width: 280px;
+  height: 280px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.support-circle {
+  width: 220px;
+  height: 220px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #e8f5e9;
+  font-size: 80px;
+}
+
+/* Responsive */
+
+@media (max-width: 768px) {
+  .support-container {
+    flex-direction: column-reverse;
+    padding: 30px 20px;
+    text-align: center;
+  }
+
+  .support-image {
+    width: 200px;
+    height: 200px;
+  }
+
+  .support-circle {
+    width: 160px;
+    height: 160px;
+    font-size: 60px;
+  }
+
+  .support-content h2 {
+    font-size: 28px;
+  }
+
+  .support-content > p {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .support-card {
+    text-align: left;
+  }
+}
