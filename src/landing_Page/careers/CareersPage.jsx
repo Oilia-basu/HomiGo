@@ -1,4 +1,4 @@
-import ServiceProviderPage from "../../../serviceprovider/ServiceProviderPage";
+import ServiceProviderPage from "../serviceprovider/ServiceProviderPage";
 import HiringCard from "./HiringCard";
 import { Link} from "react-router-dom";
 

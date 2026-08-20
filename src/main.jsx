@@ -8,7 +8,7 @@ import Footer from "./landing_Page/Footer.jsx";
 
 import AppRoutes from "../routes/AppRoutes.jsx";
 
-import ServiceProviderPage from "../serviceprovider/ServiceProviderPage.jsx";
+import ServiceProviderPage from "./landing_Page/serviceprovider/ServiceProviderPage.jsx";
 import Admin from "./landing_Page/admin/Admin.jsx";
 import LoginRoutes from "../routes/LoginRoutes.jsx"
 import ProviderRoutes from "../routes/ProviderRoutes.jsx";

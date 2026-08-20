@@ -1,5 +1,5 @@
 import { Routes, Route } from "react-router-dom";
-import ServiceProviderPage from "../serviceprovider/ServiceProviderPage";
+import ServiceProviderPage from "../src/landing_Page/serviceprovider/ServiceProviderPage";
 
 
 const ProviderRoutes = () => {
