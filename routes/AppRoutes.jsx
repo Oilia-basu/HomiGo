@@ -2,8 +2,6 @@ import { Routes, Route } from "react-router-dom";
 
 import Home from "../src/landing_Page/home/Home.jsx";
 import MyBookingPage from "../src/landing_Page/mybookings/MyBookingPage.jsx";
-import Login from "../src/landing_Page/Login.jsx";
-import Signup from "../src/landing_Page/Signup.jsx";
 import NotFound from "../src/landing_Page/NotFound.jsx";
 import Support from "../src/landing_Page/support/Support.jsx";
 import CareersPage from "../src/landing_Page/careers/CareersPage.jsx";
@@ -18,9 +16,6 @@ const AppRoutes = () => {
       <Route path="/support" element={<Support />} />
       <Route path="/careers" element={<CareersPage />} />
       <Route path="/mybookings" element={<MyBookingPage />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/signup" element={<Signup />} />
-
       <Route path="*" element={<NotFound />} />
     </Routes>
   );
