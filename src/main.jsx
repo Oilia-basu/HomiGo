@@ -13,7 +13,6 @@ import Admin from "./landing_Page/admin/Admin.jsx";
 import LoginRoutes from "../routes/LoginRoutes.jsx"
 import ProviderRoutes from "../routes/ProviderRoutes.jsx";
 import SignupRoutes from "../routes/SignupRoute.jsx";
-
 createRoot(document.getElementById("root")).render(
   <BrowserRouter>
 
@@ -27,6 +26,7 @@ createRoot(document.getElementById("root")).render(
             <Navbar />
 
             <AppRoutes />
+            
 
             <Footer />
           </>

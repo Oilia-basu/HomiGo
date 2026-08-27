@@ -12,10 +12,25 @@ const AppRoutes = () => {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
+
       <Route path="/services" element={<ServicePage />} />
+      {/* Categories */} 
+      <Route path="/acrepair" element={<ServicePage />} /> 
+      <Route path="/cleaning" element={<ServicePage />} /> 
+      <Route path="/salon" element={<ServicePage />} /> 
+      <Route path="/electrician" element={<ServicePage />} /> 
+      <Route path="/plumbing" element={<ServicePage />} /> 
+      <Route path="/painting" element={<ServicePage />} /> 
+      <Route path="/appliancerepair" element={<ServicePage />} /> 
+      <Route path="/pestcontrol" element={<ServicePage />} />
+
+
       <Route path="/support" element={<Support />} />
+
       <Route path="/careers" element={<CareersPage />} />
+
       <Route path="/mybookings" element={<MyBookingPage />} />
+      
       <Route path="*" element={<NotFound />} />
     </Routes>
   );

@@ -1,6 +1,6 @@
 function ServiceProviderPage() {
     return ( <>
-            <h1>Service Provide Dashboard</h1>
+            <h1>Service Provider Dashboard</h1>
     </>
     );
 }
