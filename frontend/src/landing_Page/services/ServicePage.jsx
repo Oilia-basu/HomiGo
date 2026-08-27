@@ -1,9 +1,17 @@
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import services from "./ServiceData";
+import axios from 'axios'
 import "./ServicePage.css";
 
-function ServicePage() {
+const ServicePage = () => {
+    
+    const [allServices,setAllServices] = useState([]);
+    useEffect(()=>{
+        axios.get("http://localhost:3002/allservices").then((res)=>{
+            console.log(res.data)
+            setAllServices(res.data)
+        })
+    },[])
 
     const navigate = useNavigate();
     const location = useLocation();
@@ -45,7 +53,7 @@ function ServicePage() {
 
 
     // Filter services
-    const filteredServices = services
+    const filteredServices = allServices
         .filter((service) => {
 
             const categoryMatch =
