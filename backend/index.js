@@ -6,7 +6,8 @@ const bodyParser = require('body-parser');
 const cors = require("cors");
 
 
-const {ServicesModel} = require('./model/ServicesModel')
+const { ServicesModel } = require('./model/ServicesModel')
+const { BookingModel } = require('./model/BookingMdel')
 
 const PORT = process.env.PORT || 3002
 const uri = process.env.MONGO_URI;
@@ -177,12 +178,52 @@ app.use(bodyParser.json());
 //     res.send("Done!")
 // });
 
-app.get('/allservices',async(req,res)=>{
+app.get('/allservices', async (req, res) => {
     let allServices = await ServicesModel.find({});
     res.json(allServices);
 });
 
-app.listen(PORT,()=>{
+app.post("/newbooking", async (req, res) => {
+
+    try {
+
+        const newBooking = new BookingModel({
+
+            user: req.body.user,
+
+            service: req.body.service,
+
+            professional: req.body.professional || null,
+
+            serviceName: req.body.serviceName,
+
+            bookingTime: req.body.bookingTime,
+
+            bookingDate: req.body.bookingDate,
+
+            quantity: req.body.quantity || 1,
+
+            price: req.body.price,
+
+            totalAmount: req.body.totalAmount,
+
+            address: req.body.address
+        });
+
+        await newBooking.save();
+
+        res.send("Booking saved!");
+
+    } catch (error) {
+
+        console.error(error);
+
+        res.status(500).send("Error saving booking");
+
+    }
+});
+
+app.listen(PORT, () => {
     console.log("app started")
     mongoose.connect(uri)
     console.log("DB connected")

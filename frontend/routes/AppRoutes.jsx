@@ -9,6 +9,7 @@ import CareersPage from "../src/landing_Page/careers/CareersPage.jsx";
 import ServicePage from "../src/landing_Page/services/ServicePage.jsx";
 
 import { GeneralContextProvider } from "../src/landing_Page/services/GeneralContext.jsx";
+import Terms from "../src/landing_Page/Terms.jsx";
 
 
 const AppRoutes = () => {
@@ -85,6 +86,7 @@ const AppRoutes = () => {
           path="/mybookings"
           element={<MyBookingPage />}
         />
+        <Route path="/terms" element={<Terms/>}/>
 
         {/* 404 */}
         <Route

@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 function Footer() {
     return (
         <footer style={{ backgroundColor: "rgb(250, 250, 250)" }}>
@@ -13,7 +14,7 @@ function Footer() {
                             <br />
                             <a className="text-muted text-decoration-none" href="">Investor Relations </a>
                             <br />
-                            <a className="text-muted text-decoration-none" href="">Terms & conditions </a>
+                            <Link to='/terms' className="text-muted text-decoration-none" href="">Terms & conditions </Link>
                             <br />
                             <a className="text-muted text-decoration-none" href="">Privacy policy</a>
                             <br />

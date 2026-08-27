@@ -142,59 +142,75 @@ const BookingActionWindow = ({ service }) => {
   ===================================================== */
 
   const handleBooking = async () => {
-    if (
-      !bookingDate ||
-      !bookingTime ||
-      !address.trim()
-    ) {
-      alert("Please fill in all booking details.");
-      return;
-    }
+  if (!bookingDate || !bookingTime || !address.trim()) {
+    alert("Please fill in all booking details.");
+    return;
+  }
 
-    try {
-      setLoading(true);
+  try {
+    setLoading(true);
 
-      const bookingData = {
-        serviceId: service._id,
-        serviceName: service.name,
-        quantity,
-        price,
-        totalAmount,
-        bookingDate,
-        bookingTime,
-        address,
-        status: "pending",
-      };
+    const bookingData = {
+      // Dummy user for now
+      user: "65f123456789abcdef123456",
 
-      const response = await axios.post(
-        "http://localhost:3002/api/bookings",
-        bookingData
-      );
+      // Dynamic service ID
+      service: service._id,
 
-      console.log(
-        "Booking created:",
-        response.data
-      );
+      // Dummy professional for now
+      professional: "65f987654321abcdef654321",
 
-      alert("Service booked successfully!");
+      // Dynamic service information
+      serviceName: service.name,
 
-      closeBookingWindow();
+      // Dynamic form values
+      bookingTime: bookingTime,
+      bookingDate: bookingDate,
 
-    } catch (error) {
-      console.error(
-        "Booking error:",
-        error
-      );
+      // Dynamic quantity
+      quantity: quantity,
 
-      alert(
-        error.response?.data?.message ||
-          "Something went wrong while booking the service."
-      );
+      // Dynamic service price
+      price: price,
 
-    } finally {
-      setLoading(false);
-    }
-  };
+      // Dynamic total
+      totalAmount: totalAmount,
+
+      // Dummy status
+      status: "pending",
+
+      // Dummy payment status
+      paymentStatus: "pending",
+
+      // Dynamic address
+      address: address,
+    };
+
+    console.log("Booking Data:", bookingData);
+
+    const response = await axios.post(
+      "http://localhost:3002/newbooking",
+      bookingData
+    );
+
+    console.log("Booking created:", response.data);
+
+    alert("Service booked successfully!");
+
+    closeBookingWindow();
+
+  } catch (error) {
+    console.error("Booking error:", error);
+
+    alert(
+      error.response?.data?.message ||
+      "Something went wrong while booking the service."
+    );
+
+  } finally {
+    setLoading(false);
+  }
+};
 
 
   /* =====================================================
@@ -208,29 +224,28 @@ const BookingActionWindow = ({ service }) => {
 
   return (
     <div
-      className={`homigo-booking-window card shadow-lg border-0 ${
-        isDragging ? "opacity-75" : ""
-      }`}
+      className={`homigo-booking-window card shadow-lg border-0 ${isDragging ? "opacity-75" : ""
+        }`}
       style={
         position.x !== null
           ? {
-              position: "fixed",
-              left: `${position.x}px`,
-              top: `${position.y}px`,
-              right: "auto",
-              bottom: "auto",
-              width: "430px",
-              maxWidth: "calc(100vw - 24px)",
-              zIndex: 1050,
-            }
+            position: "fixed",
+            left: `${position.x}px`,
+            top: `${position.y}px`,
+            right: "auto",
+            bottom: "auto",
+            width: "430px",
+            maxWidth: "calc(100vw - 24px)",
+            zIndex: 1050,
+          }
           : {
-              position: "fixed",
-              right: "30px",
-              bottom: "25px",
-              width: "430px",
-              maxWidth: "calc(100vw - 24px)",
-              zIndex: 1050,
-            }
+            position: "fixed",
+            right: "30px",
+            bottom: "25px",
+            width: "430px",
+            maxWidth: "calc(100vw - 24px)",
+            zIndex: 1050,
+          }
       }
     >
 
