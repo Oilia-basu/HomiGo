@@ -1,17 +1,26 @@
-import { useState,useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import axios from 'axios'
+import axios from "axios";
 import "./ServicePage.css";
 
+import GeneralContext from "./GeneralContext";
+
 const ServicePage = () => {
-    
-    const [allServices,setAllServices] = useState([]);
-    useEffect(()=>{
-        axios.get("http://localhost:3002/allservices").then((res)=>{
-            console.log(res.data)
-            setAllServices(res.data)
-        })
-    },[])
+    const [allServices, setAllServices] = useState([]);
+
+    const { openBookingWindow } = useContext(GeneralContext);
+
+    useEffect(() => {
+        axios
+            .get("http://localhost:3002/allservices")
+            .then((res) => {
+                console.log(res.data);
+                setAllServices(res.data);
+            })
+            .catch((err) => {
+                console.error("Error fetching services:", err);
+            });
+    }, []);
 
     const navigate = useNavigate();
     const location = useLocation();
@@ -25,7 +34,7 @@ const ServicePage = () => {
         "/plumbing": "Plumbing",
         "/painting": "Painting",
         "/appliancerepair": "Appliance Repair",
-        "/pestcontrol": "Pest Control"
+        "/pestcontrol": "Pest Control",
     };
 
     // Get category from current URL
@@ -37,7 +46,6 @@ const ServicePage = () => {
     const [selectedRating, setSelectedRating] = useState(0);
     const [sortBy, setSortBy] = useState("Popular");
 
-
     // Categories
     const categories = [
         "All Categories",
@@ -48,25 +56,21 @@ const ServicePage = () => {
         "Plumbing",
         "Painting",
         "Appliance Repair",
-        "Pest Control"
+        "Pest Control",
     ];
-
 
     // Filter services
     const filteredServices = allServices
         .filter((service) => {
-
             const categoryMatch =
                 selectedCategory === "All Categories" ||
                 service.category === selectedCategory;
 
-            const searchMatch =
-                service.name
-                    .toLowerCase()
-                    .includes(search.toLowerCase());
+            const searchMatch = service.name
+                .toLowerCase()
+                .includes(search.toLowerCase());
 
-            const priceMatch =
-                service.price <= maxPrice;
+            const priceMatch = service.price <= maxPrice;
 
             const ratingMatch =
                 selectedRating === 0 ||
@@ -79,10 +83,7 @@ const ServicePage = () => {
                 ratingMatch
             );
         })
-
-        // Sorting
         .sort((a, b) => {
-
             if (sortBy === "Price: Low to High") {
                 return a.price - b.price;
             }
@@ -99,114 +100,82 @@ const ServicePage = () => {
             return b.reviews - a.reviews;
         });
 
-
     // Handle category click
     const handleCategoryClick = (category) => {
-
         if (category === "All Categories") {
-
             navigate("/services");
-
         } else {
-
             const routeMap = {
                 "AC Repair": "/acrepair",
-                "Cleaning": "/cleaning",
-                "Salon": "/salon",
-                "Electrician": "/electrician",
-                "Plumbing": "/plumbing",
-                "Painting": "/painting",
+                Cleaning: "/cleaning",
+                Salon: "/salon",
+                Electrician: "/electrician",
+                Plumbing: "/plumbing",
+                Painting: "/painting",
                 "Appliance Repair": "/appliancerepair",
-                "Pest Control": "/pestcontrol"
+                "Pest Control": "/pestcontrol",
             };
 
             navigate(routeMap[category]);
         }
     };
 
-
     // Clear filters
     const clearFilters = () => {
-
         setSelectedRating(0);
         setMaxPrice(1000);
         setSearch("");
         setSortBy("Popular");
     };
 
-
     return (
         <div className="services-page">
 
-
-            {/* ================= SEARCH BAR ================= */}
-
+            {/* SEARCH BAR */}
             <div className="services-search-container">
-
                 <div className="search-box">
-
                     <span>⌕</span>
 
                     <input
                         type="text"
                         placeholder="Search for services..."
                         value={search}
-                        onChange={(e) =>
-                            setSearch(e.target.value)
-                        }
+                        onChange={(e) => setSearch(e.target.value)}
                     />
-
                 </div>
-
             </div>
-
 
             <div className="services-layout">
 
-
-                {/* ================= LEFT SIDEBAR ================= */}
-
+                {/* LEFT SIDEBAR */}
                 <aside className="services-sidebar">
 
                     <h3>Categories</h3>
 
-
                     <div className="category-list">
-
                         {categories.map((category) => (
-
                             <button
                                 key={category}
-
                                 className={
                                     selectedCategory === category
                                         ? "category-btn active"
                                         : "category-btn"
                                 }
-
                                 onClick={() =>
                                     handleCategoryClick(category)
                                 }
                             >
-
                                 {category}
-
                             </button>
-
                         ))}
-
                     </div>
 
-
-                    {/* ================= FILTERS ================= */}
-
+                    {/* FILTERS */}
                     <div className="filter-section">
 
                         <h3>Filters</h3>
 
-
                         {/* PRICE */}
-
                         <div className="filter-group">
 
                             <h4>Price Range</h4>
@@ -216,52 +185,35 @@ const ServicePage = () => {
                                 min="0"
                                 max="1000"
                                 value={maxPrice}
-
                                 onChange={(e) =>
-                                    setMaxPrice(
-                                        Number(e.target.value)
-                                    )
+                                    setMaxPrice(Number(e.target.value))
                                 }
-
                                 className="price-slider"
                             />
 
-
                             <div className="price-values">
-
                                 <span>₹0</span>
-
-                                <span>
-                                    ₹{maxPrice}
-                                </span>
-
+                                <span>₹{maxPrice}</span>
                             </div>
 
                         </div>
 
-
                         {/* RATING */}
-
                         <div className="filter-group">
 
                             <h4>Rating</h4>
 
-
                             {[4.5, 4, 3.5].map((rating) => (
-
                                 <label
                                     className="rating-option"
                                     key={rating}
                                 >
-
                                     <input
                                         type="radio"
                                         name="rating"
-
                                         checked={
                                             selectedRating === rating
                                         }
-
                                         onChange={() =>
                                             setSelectedRating(rating)
                                         }
@@ -270,16 +222,12 @@ const ServicePage = () => {
                                     <span>
                                         ★ {rating} & above
                                     </span>
-
                                 </label>
-
                             ))}
 
                         </div>
 
-
                         {/* CLEAR FILTER */}
-
                         <button
                             className="clear-filter"
                             onClick={clearFilters}
@@ -291,51 +239,35 @@ const ServicePage = () => {
 
                 </aside>
 
-
-                {/* ================= MAIN CONTENT ================= */}
-
+                {/* MAIN CONTENT */}
                 <main className="services-content">
 
-
                     {/* HEADING */}
-
                     <div className="services-heading">
 
                         <div>
-
                             <h1>
-
                                 {selectedCategory === "All Categories"
                                     ? "Home Services"
                                     : `${selectedCategory} Services`}
-
                             </h1>
-
 
                             <p>
                                 {filteredServices.length} services available
                             </p>
-
                         </div>
 
-
                         {/* SORT */}
-
                         <div className="sort-container">
 
-                            <label>
-                                Sort by
-                            </label>
-
+                            <label>Sort by</label>
 
                             <select
                                 value={sortBy}
-
                                 onChange={(e) =>
                                     setSortBy(e.target.value)
                                 }
                             >
-
                                 <option value="Popular">
                                     Popular
                                 </option>
@@ -351,16 +283,13 @@ const ServicePage = () => {
                                 <option value="Price: High to Low">
                                     Price: High to Low
                                 </option>
-
                             </select>
 
                         </div>
 
                     </div>
 
-
-                    {/* ================= SERVICE CARDS ================= */}
-
+                    {/* SERVICE CARDS */}
                     {filteredServices.length > 0 ? (
 
                         <div className="services-grid">
@@ -369,12 +298,10 @@ const ServicePage = () => {
 
                                 <div
                                     className="service-card"
-                                    key={service.id}
+                                    key={service._id}
                                 >
 
-
                                     {/* IMAGE */}
-
                                     <div className="service-image-container">
 
                                         <img
@@ -385,29 +312,21 @@ const ServicePage = () => {
 
                                     </div>
 
-
                                     {/* CARD BODY */}
-
                                     <div className="service-card-body">
-
 
                                         <h3>
                                             {service.name}
                                         </h3>
 
-
                                         <p className="starting-price">
                                             Starts at ₹{service.price}
                                         </p>
 
-
                                         {/* RATING */}
-
                                         <div className="service-rating">
 
-                                            <span>
-                                                ★
-                                            </span>
+                                            <span>★</span>
 
                                             <strong>
                                                 {service.rating}
@@ -419,16 +338,11 @@ const ServicePage = () => {
 
                                         </div>
 
-
                                         {/* BOOK BUTTON */}
-
                                         <button
                                             className="book-btn"
-
                                             onClick={() =>
-                                                alert(
-                                                    `Booking ${service.name}`
-                                                )
+                                                openBookingWindow(service)
                                             }
                                         >
                                             Book Now
@@ -444,9 +358,7 @@ const ServicePage = () => {
 
                     ) : (
 
-
                         /* NO SERVICES */
-
                         <div className="no-services">
 
                             <h2>
@@ -467,7 +379,6 @@ const ServicePage = () => {
 
         </div>
     );
-}
+};
 
 export default ServicePage;
-
