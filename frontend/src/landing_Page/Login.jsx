@@ -1,7 +1,6 @@
-
-
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -12,6 +11,9 @@ const Login = () => {
   });
 
   const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
 
   const handleChange = (e) => {
     setFormData({
@@ -20,24 +22,72 @@ const Login = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    console.log("Login Data:", formData);
+    setError("");
+    setSuccess("");
 
-    // Later connect this with backend
-    // axios.post("http://localhost:5000/api/auth/login", formData)
+    try {
+      setLoading(true);
 
-    navigate("/services");
+      const response = await axios.post(
+        "http://localhost:3002/login",
+        {
+          email: formData.email,
+          password: formData.password,
+        },
+        {
+          withCredentials: true,
+        }
+      );
+
+      console.log("Login Response:", response.data);
+
+      if (response.data.success) {
+        setSuccess("Login successful!");
+
+        // Save logged-in user's information
+        localStorage.setItem(
+          "user",
+          JSON.stringify(response.data.user)
+        );
+
+        setTimeout(() => {
+          navigate("/services");
+        }, 1000);
+      } else {
+        setError(response.data.message || "Login failed");
+      }
+
+    } catch (error) {
+      console.error("Login Error:", error);
+
+      if (error.response) {
+        setError(
+          error.response.data.message || "Incorrect email or password"
+        );
+      } else {
+        setError("Unable to connect to the server");
+      }
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <div className="container-fluid min-vh-100 d-flex align-items-center justify-content-center bg-light">
 
-      <div className="row shadow-lg rounded-4 overflow-hidden bg-white w-100" style={{ maxWidth: "1000px" }}>
+      <div
+        className="row shadow-lg rounded-4 overflow-hidden bg-white w-100"
+        style={{ maxWidth: "1000px" }}
+      >
 
         {/* Left Section */}
-        <div className="col-md-5 d-none d-md-flex  text-white p-5 flex-column justify-content-between" style={{backgroundColor:"#00BFA6"}}>
+        <div
+          className="col-md-5 d-none d-md-flex text-white p-5 flex-column justify-content-between"
+          style={{ backgroundColor: "#00BFA6" }}
+        >
 
           <div>
             <h1 className="fw-bold">
@@ -65,7 +115,10 @@ const Login = () => {
         {/* Right Section */}
         <div className="col-md-7 p-4 p-md-5">
 
-          <div className="mx-auto" style={{ maxWidth: "420px" }}>
+          <div
+            className="mx-auto"
+            style={{ maxWidth: "420px" }}
+          >
 
             <h2 className="fw-bold text-dark mb-2">
               Login
@@ -74,6 +127,26 @@ const Login = () => {
             <p className="text-secondary mb-4">
               Sign in to continue to HomiGo
             </p>
+
+            {/* Error Message */}
+            {error && (
+              <div
+                className="alert alert-danger"
+                role="alert"
+              >
+                {error}
+              </div>
+            )}
+
+            {/* Success Message */}
+            {success && (
+              <div
+                className="alert alert-success"
+                role="alert"
+              >
+                {success}
+              </div>
+            )}
 
             <form onSubmit={handleSubmit}>
 
@@ -103,18 +176,12 @@ const Login = () => {
               {/* Password */}
               <div className="mb-3">
 
-                <div className="d-flex justify-content-between">
-
-                  <label
-                    htmlFor="password"
-                    className="form-label fw-semibold"
-                  >
-                    Password
-                  </label>
-
-                  
-
-                </div>
+                <label
+                  htmlFor="password"
+                  className="form-label fw-semibold"
+                >
+                  Password
+                </label>
 
                 <div className="input-group">
 
@@ -132,7 +199,13 @@ const Login = () => {
                   <button
                     type="button"
                     className="btn btn-outline-secondary"
-                    onClick={() => setShowPassword(!showPassword)} style={{backgroundColor:"#00BFA6"}}
+                    onClick={() =>
+                      setShowPassword(!showPassword)
+                    }
+                    style={{
+                      backgroundColor: "#00BFA6",
+                      color: "white",
+                    }}
                   >
                     {showPassword ? "Hide" : "Show"}
                   </button>
@@ -141,14 +214,14 @@ const Login = () => {
 
               </div>
 
-              
-
               {/* Login Button */}
               <button
                 type="submit"
-                className="btn  btn-lg w-100" style={{backgroundColor:"#00BFA6"}}
+                className="btn btn-lg w-100 text-white"
+                style={{ backgroundColor: "#00BFA6" }}
+                disabled={loading}
               >
-                Login
+                {loading ? "Logging in..." : "Login"}
               </button>
 
             </form>

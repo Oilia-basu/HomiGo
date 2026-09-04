@@ -40,6 +40,9 @@ function Footer() {
                     </div>
                     <div className="col">
                         <h1 className="fs-5">Social links</h1>
+                        <a className="text-muted text-decoration-none" href="/" style={{fontSize:"25px"}}><i class="fa-brands fa-instagram"></i></a>
+                        &nbsp;
+                        <a className="text-muted text-decoration-none" href="/" style={{fontSize:"25px"}}><i class="fa-brands fa-square-linkedin"></i></a>
                     </div>
                 </div>
                 <div className="mt-5 text-muted" style={{ fontSize: "14px" }}>

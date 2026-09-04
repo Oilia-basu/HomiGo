@@ -1,16 +1,21 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const Signup = () => {
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
-    name: "",
+    fullname: "",
     email: "",
-    phone: "",
+    phoneNo: "",
     password: "",
     confirmPassword: "",
   });
+
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
 
   const handleChange = (e) => {
     setFormData({
@@ -19,20 +24,61 @@ const Signup = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
+    setError("");
+    setSuccess("");
+
+    // Check password
     if (formData.password !== formData.confirmPassword) {
-      alert("Passwords do not match!");
+      setError("Passwords do not match!");
       return;
     }
 
-    console.log("Signup Data:", formData);
+    try {
+      setLoading(true);
 
-    // Later connect with backend
-    // axios.post("http://localhost:5000/api/auth/signup", formData)
+      // Send only the fields required by backend
+      const response = await axios.post(
+        "http://localhost:3002/signup",
+        {
+          fullname: formData.fullname,
+          email: formData.email,
+          phoneNo: formData.phoneNo,
+          password: formData.password,
+        },
+        {
+          withCredentials: true,
+        }
+      );
 
-    navigate("/login");
+      console.log("Signup Response:", response.data);
+
+      if (response.data.success) {
+        setSuccess("Account created successfully!");
+
+        // Redirect to login after successful signup
+        setTimeout(() => {
+          navigate("/login");
+        }, 1000);
+      } else {
+        setError(response.data.message || "Signup failed");
+      }
+
+    } catch (error) {
+      console.error("Signup Error:", error);
+
+      if (error.response) {
+        setError(
+          error.response.data.message || "Something went wrong"
+        );
+      } else {
+        setError("Unable to connect to the server");
+      }
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -44,7 +90,10 @@ const Signup = () => {
       >
 
         {/* LEFT SECTION */}
-        <div className="col-md-5 d-none d-md-flex  text-white p-5 flex-column justify-content-between" style={{backgroundColor:"#00BFA6"}}>
+        <div
+          className="col-md-5 d-none d-md-flex text-white p-5 flex-column justify-content-between"
+          style={{ backgroundColor: "#00BFA6" }}
+        >
 
           <div>
             <h1 className="fw-bold">
@@ -85,13 +134,27 @@ const Signup = () => {
               Sign up to get started with HomiGo
             </p>
 
+            {/* Error Message */}
+            {error && (
+              <div className="alert alert-danger" role="alert">
+                {error}
+              </div>
+            )}
+
+            {/* Success Message */}
+            {success && (
+              <div className="alert alert-success" role="alert">
+                {success}
+              </div>
+            )}
+
             <form onSubmit={handleSubmit}>
 
-              {/* Name */}
+              {/* Full Name */}
               <div className="mb-3">
 
                 <label
-                  htmlFor="name"
+                  htmlFor="fullname"
                   className="form-label fw-semibold"
                 >
                   Full Name
@@ -100,10 +163,10 @@ const Signup = () => {
                 <input
                   type="text"
                   className="form-control"
-                  id="name"
-                  name="name"
+                  id="fullname"
+                  name="fullname"
                   placeholder="Enter your full name"
-                  value={formData.name}
+                  value={formData.fullname}
                   onChange={handleChange}
                   required
                 />
@@ -137,7 +200,7 @@ const Signup = () => {
               <div className="mb-3">
 
                 <label
-                  htmlFor="phone"
+                  htmlFor="phoneNo"
                   className="form-label fw-semibold"
                 >
                   Phone Number
@@ -146,10 +209,10 @@ const Signup = () => {
                 <input
                   type="tel"
                   className="form-control"
-                  id="phone"
-                  name="phone"
+                  id="phoneNo"
+                  name="phoneNo"
                   placeholder="Enter your phone number"
-                  value={formData.phone}
+                  value={formData.phoneNo}
                   onChange={handleChange}
                   required
                 />
@@ -232,9 +295,11 @@ const Signup = () => {
               {/* Signup Button */}
               <button
                 type="submit"
-                className="btn  btn-lg w-100" style={{backgroundColor:"#00BFA6"}}
+                className="btn btn-lg w-100 text-white"
+                style={{ backgroundColor: "#00BFA6" }}
+                disabled={loading}
               >
-                Create Account
+                {loading ? "Creating Account..." : "Create Account"}
               </button>
 
             </form>

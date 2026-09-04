@@ -128,6 +128,17 @@ const ServicePage = () => {
         setSortBy("Popular");
     };
 
+    const handleBooking = (service) => {
+        const savedUser = localStorage.getItem("user");
+
+        if (!savedUser) {
+            navigate("/login");
+            return;
+        }
+
+        openBookingWindow(service);
+    };
+
     return (
         <div className="services-page">
 
@@ -341,9 +352,7 @@ const ServicePage = () => {
                                         {/* BOOK BUTTON */}
                                         <button
                                             className="book-btn"
-                                            onClick={() =>
-                                                openBookingWindow(service)
-                                            }
+                                            onClick={() => handleBooking(service)}
                                         >
                                             Book Now
                                         </button>

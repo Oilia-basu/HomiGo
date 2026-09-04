@@ -17,6 +17,7 @@ const BookingActionWindow = ({ service }) => {
   const [bookingTime, setBookingTime] = useState("");
   const [address, setAddress] = useState("");
   const [loading, setLoading] = useState(false);
+  const [bookingSuccess, setBookingSuccess] = useState(false);
 
   // Window position
   const [position, setPosition] = useState({
@@ -142,75 +143,71 @@ const BookingActionWindow = ({ service }) => {
   ===================================================== */
 
   const handleBooking = async () => {
-  if (!bookingDate || !bookingTime || !address.trim()) {
-    alert("Please fill in all booking details.");
-    return;
-  }
+    if (!bookingDate || !bookingTime || !address.trim()) {
+      alert("Please fill in all booking details.");
+      return;
+    }
+    const savedUser = localStorage.getItem("user");
+    const currentUser = JSON.parse(savedUser);
+    try {
+      setLoading(true);
 
-  try {
-    setLoading(true);
+      const bookingData = {
+        service: service._id,
 
-    const bookingData = {
-      // Dummy user for now
-      user: "65f123456789abcdef123456",
+        professional: "65f987654321abcdef654321",
 
-      // Dynamic service ID
-      service: service._id,
+        serviceName: service.name,
 
-      // Dummy professional for now
-      professional: "65f987654321abcdef654321",
+        bookingTime: bookingTime,
 
-      // Dynamic service information
-      serviceName: service.name,
+        bookingDate: bookingDate,
 
-      // Dynamic form values
-      bookingTime: bookingTime,
-      bookingDate: bookingDate,
+        quantity: quantity,
 
-      // Dynamic quantity
-      quantity: quantity,
+        price: price,
 
-      // Dynamic service price
-      price: price,
+        totalAmount: totalAmount,
 
-      // Dynamic total
-      totalAmount: totalAmount,
+        status: "pending",
 
-      // Dummy status
-      status: "pending",
+        paymentStatus: "pending",
 
-      // Dummy payment status
-      paymentStatus: "pending",
+        address: address,
+      };
 
-      // Dynamic address
-      address: address,
-    };
+      console.log("Booking Data:", bookingData);
 
-    console.log("Booking Data:", bookingData);
+      const response = await axios.post(
+        "http://localhost:3002/newbooking",
+        bookingData,
+        {
+          withCredentials: true,
+        }
+      );
 
-    const response = await axios.post(
-      "http://localhost:3002/newbooking",
-      bookingData
-    );
 
-    console.log("Booking created:", response.data);
 
-    alert("Service booked successfully!");
+      setBookingSuccess(true);
 
-    closeBookingWindow();
+      setTimeout(() => {
+        closeBookingWindow();
+      }, 1500);
 
-  } catch (error) {
-    console.error("Booking error:", error);
 
-    alert(
-      error.response?.data?.message ||
-      "Something went wrong while booking the service."
-    );
 
-  } finally {
-    setLoading(false);
-  }
-};
+    } catch (error) {
+      console.error("Booking error:", error);
+
+      alert(
+        error.response?.data?.message ||
+        "Something went wrong while booking the service."
+      );
+
+    } finally {
+      setLoading(false);
+    }
+  };
 
 
   /* =====================================================
@@ -223,6 +220,7 @@ const BookingActionWindow = ({ service }) => {
 
 
   return (
+    
     <div
       className={`homigo-booking-window card shadow-lg border-0 ${isDragging ? "opacity-75" : ""
         }`}
