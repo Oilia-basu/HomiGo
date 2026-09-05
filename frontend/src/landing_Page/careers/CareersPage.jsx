@@ -44,7 +44,7 @@ function CareersPage() {
                 salary={"Earn upto ₹10 LPA"}
             />
 <div className="d-flex justify-content-center mt-5">
-        <Link to="/provider" className="career-link">
+    <Link to="/provider" className="career-link">
         <button className="career-btn">
             <span className="career-spark">✦</span>
             <span>Build Your Career with HomiGo</span>
