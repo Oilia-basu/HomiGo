@@ -271,6 +271,17 @@ app.get("/mybookings", verifyToken, async (req, res) => {
         });
     }
 });
+app.post("/logout", (req, res) => {
+    res.clearCookie("token", {
+        httpOnly: true,
+        secure: false,
+        sameSite: "lax"
+    });
+
+    res.json({
+        message: "Logged out successfully"
+    });
+});
 
 app.use("/", authRoute);
 app.listen(PORT, () => {
