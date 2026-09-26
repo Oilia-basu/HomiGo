@@ -481,16 +481,22 @@ const MyProfile = () => {
           <div className="homigo-nav">
 
             <div
-              className="homigo-logo"
-              onClick={() =>
-                (window.location.href = APP_URL)
-              }
+              className="homigo-logo d-flex align-items-center"
+              onClick={() => {
+                window.location.href = APP_URL;
+              }}
+              style={{ cursor: "pointer" }}
             >
-              <div className="logo-box">
-                H
+              <div className="logo-box" onClick={() => {
+                window.location.href = APP_URL;
+              }}
+              style={{ cursor: "pointer" }}>
+                <img
+                  src="/media/images/HomiGoLogo.png"
+                  alt="Homigo Logo"
+                  className="img-fluid"
+              />
               </div>
-
-              <span>Homigo</span>
             </div>
 
             <button

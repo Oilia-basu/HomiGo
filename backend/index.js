@@ -230,6 +230,8 @@ app.post("/newbooking", verifyToken, async (req, res) => {
 
             totalAmount: req.body.totalAmount,
 
+            phoneNo: req.body.phoneNo,
+
             address: req.body.address,
 
             status: req.body.status || "pending",
