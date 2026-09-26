@@ -7,6 +7,7 @@ const cors = require("cors");
 const cookieParser = require("cookie-parser")
 
 const authRoute = require("./Routes/AuthRoute")
+const UserRoute = require("./Routes/UserRoute");
 const verifyToken = require("./Middlewares/AuthMiddlewares");
 
 const { ServicesModel } = require('./model/ServicesModel')
@@ -284,6 +285,7 @@ app.post("/logout", (req, res) => {
 });
 
 app.use("/", authRoute);
+app.use("/", UserRoute);
 app.listen(PORT, () => {
     console.log("app started")
    

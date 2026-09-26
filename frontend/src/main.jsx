@@ -13,6 +13,7 @@ import Admin from "./landing_Page/admin/Admin.jsx";
 import LoginRoutes from "../routes/LoginRoutes.jsx"
 import ProviderRoutes from "../routes/ProviderRoutes.jsx";
 import SignupRoutes from "../routes/SignupRoute.jsx";
+import MyProfile from "./landing_Page/myProfile/MyProfile.jsx";
 createRoot(document.getElementById("root")).render(
   <BrowserRouter>
 
@@ -50,6 +51,7 @@ createRoot(document.getElementById("root")).render(
         path="/admin"
         element={<Admin />}
       />
+      <Route path="/myprofile" element={<MyProfile/>}/>
 
     </Routes>
 

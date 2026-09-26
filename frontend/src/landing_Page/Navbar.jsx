@@ -318,7 +318,7 @@ function Navbar() {
                                                 type="button"
                                                 onClick={() => {
                                                     setShowProfile(false);
-                                                    navigate("/profile");
+                                                    navigate("/myprofile");
                                                 }}
                                                 className="btn btn-light w-100 mt-3"
                                             >
