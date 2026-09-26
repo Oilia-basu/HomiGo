@@ -15,7 +15,7 @@ const MyBookingPage = () => {
     const fetchBookings = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:3002/mybookings",
+          `${import.meta.env.VITE_API_URL}/mybookings`,
           {
             withCredentials: true,
           }

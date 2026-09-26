@@ -3,7 +3,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import AdminButton from "./admin/AdminButton";
 import "./Navbar.css";
-
+import axios from "axios";
 function Navbar() {
     const location = useLocation();
     const navigate = useNavigate();
@@ -33,18 +33,21 @@ function Navbar() {
     };
 
     // Logout
-    const handleLogout = () => {
-        // Remove user information from browser
+    const handleLogout = async () => {
+        try {
+            await axios.post(
+                "http://localhost:3002/logout",
+                {},
+                { withCredentials: true }
+            );
+        } catch (error) {
+            console.error("Logout error:", error);
+        }
+
         localStorage.removeItem("user");
-
-        // Close profile dropdown
-        setShowProfile(false);
-
-        // Update navbar
         setUser(null);
-
-        // Redirect to login
-        navigate("/login");
+        setShowProfile(false);
+        navigate("/");
     };
 
     return (
@@ -102,8 +105,8 @@ function Navbar() {
                             <li className="nav-item">
                                 <Link
                                     className={`nav-link ${location.pathname === "/services"
-                                            ? "active-nav"
-                                            : ""
+                                        ? "active-nav"
+                                        : ""
                                         }`}
                                     to="/services"
                                 >
@@ -115,8 +118,8 @@ function Navbar() {
                             <li className="nav-item">
                                 <Link
                                     className={`nav-link ${location.pathname === "/careers"
-                                            ? "active-nav"
-                                            : ""
+                                        ? "active-nav"
+                                        : ""
                                         }`}
                                     to="/careers"
                                 >
@@ -129,8 +132,8 @@ function Navbar() {
                                 (<li className="nav-item">
                                     <Link
                                         className={`nav-link ${location.pathname === "/mybookings"
-                                                ? "active-nav"
-                                                : ""
+                                            ? "active-nav"
+                                            : ""
                                             }`}
                                         to="/mybookings"
                                     >
@@ -143,8 +146,8 @@ function Navbar() {
                             <li className="nav-item">
                                 <Link
                                     className={`nav-link ${location.pathname === "/support"
-                                            ? "active-nav"
-                                            : ""
+                                        ? "active-nav"
+                                        : ""
                                         }`}
                                     to="/support"
                                 >
@@ -315,7 +318,7 @@ function Navbar() {
                                                 type="button"
                                                 onClick={() => {
                                                     setShowProfile(false);
-                                                    navigate("/profile");
+                                                    navigate("/myprofile");
                                                 }}
                                                 className="btn btn-light w-100 mt-3"
                                             >

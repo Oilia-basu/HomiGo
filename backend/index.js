@@ -7,6 +7,7 @@ const cors = require("cors");
 const cookieParser = require("cookie-parser")
 
 const authRoute = require("./Routes/AuthRoute")
+const UserRoute = require("./Routes/UserRoute");
 const verifyToken = require("./Middlewares/AuthMiddlewares");
 
 const { ServicesModel } = require('./model/ServicesModel')
@@ -229,6 +230,8 @@ app.post("/newbooking", verifyToken, async (req, res) => {
 
             totalAmount: req.body.totalAmount,
 
+            phoneNo: req.body.phoneNo,
+
             address: req.body.address,
 
             status: req.body.status || "pending",
@@ -271,8 +274,20 @@ app.get("/mybookings", verifyToken, async (req, res) => {
         });
     }
 });
+app.post("/logout", (req, res) => {
+    res.clearCookie("token", {
+        httpOnly: true,
+        secure: false,
+        sameSite: "lax"
+    });
+
+    res.json({
+        message: "Logged out successfully"
+    });
+});
 
 app.use("/", authRoute);
+app.use("/", UserRoute);
 app.listen(PORT, () => {
     console.log("app started")
    

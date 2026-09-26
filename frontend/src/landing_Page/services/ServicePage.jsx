@@ -12,7 +12,7 @@ const ServicePage = () => {
 
     useEffect(() => {
         axios
-            .get("http://localhost:3002/allservices")
+            .get(`${import.meta.env.VITE_API_URL}/allservices`)
             .then((res) => {
                 console.log(res.data);
                 setAllServices(res.data);
